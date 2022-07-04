@@ -50,7 +50,7 @@
    </center>
     <bottom>
         <StackPane>
-            <Label fx:id="reuslt" text="conversion:  " BorderPane.alignment="TOP_LEFT" StackPane.alignment="CENTER">
+            <Label fx:id="reuslt" text="" BorderPane.alignment="TOP_LEFT" StackPane.alignment="CENTER">
                 <padding>
                     <Insets bottom="90.0" />
                 </padding></Label>

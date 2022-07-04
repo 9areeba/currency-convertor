@@ -13,7 +13,6 @@ public class Convertor {
 
     public Convertor(){
         apiKey  = "04cad6402207e826dc0e9e8b";
-        urlString = "https://v6.exchangerate-api.com/v6/" + apiKey;
     }
 
     public static void main(String[] args) {
@@ -37,7 +36,7 @@ public class Convertor {
      * @return map of currency codes and currency names
      */
     public Map<String, Object> getSupportedCodes(){
-        urlString += "/codes";
+        urlString = "https://v6.exchangerate-api.com/v6/" + apiKey + "/codes";
 
         try{
             //Requesting data from the API
@@ -65,7 +64,7 @@ public class Convertor {
      * @return the conversion rate
      */
     public double getConversionRate(String baseCurrency, String targetCurrency){
-        urlString += "pair/" + baseCurrency +"/" + targetCurrency;
+        urlString = "https://v6.exchangerate-api.com/v6/" + apiKey + "pair/" + baseCurrency +"/" + targetCurrency;
 
         try{
             URL url = new URL(urlString);
@@ -78,6 +77,7 @@ public class Convertor {
 
         } catch (Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
             return 0;
         }
     }
