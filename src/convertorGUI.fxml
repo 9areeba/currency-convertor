@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="300.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GuiController">
+    <top>
+        <StackPane>
+            <Label alignment="CENTER" prefWidth="395.0" text="Select the currencies you want to convert below!" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+            <font>
+               <Font size="16.0" />
+            </font>
+            <padding>
+               <Insets bottom="10.0" top="10.0" />
+            </padding></Label>
+        </StackPane>
+
+    </top>
+   <center>
+       <StackPane alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+           <GridPane alignment="TOP_CENTER" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" vgap="20" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
+                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
+                   <ColumnConstraints maxWidth="300.0" prefWidth="300.0" />
+               </columnConstraints>
+               <rowConstraints>
+                   <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                   <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+               <RowConstraints />
+               </rowConstraints>
+
+               <Label text="Amount" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+               <TextField fx:id="amount" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="300.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+               <Label text="From" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+               <ComboBox fx:id="baseCurrencyComboBox" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+               <Label text="To" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+               <ComboBox fx:id="targetCurrencyComboBox" prefWidth="300.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+           </GridPane>
+         <Button fx:id="convertButton" mnemonicParsing="false" onAction="#handleConversion" text="Convert" StackPane.alignment="CENTER_RIGHT" />
+
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+       </StackPane>
+   </center>
+    <bottom>
+        <StackPane>
+            <Label fx:id="reuslt" text="conversion:  " BorderPane.alignment="TOP_LEFT" StackPane.alignment="CENTER">
+                <padding>
+                    <Insets bottom="90.0" />
+                </padding></Label>
+        </StackPane>
+
+    </bottom>
+
+</BorderPane>
