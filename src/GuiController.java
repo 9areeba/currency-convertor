@@ -5,8 +5,7 @@ import javafx.event.Event;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import java.text.DecimalFormat;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * This class handles reading and updating data from the gui.
@@ -38,8 +37,11 @@ public class GuiController {
     public void initialize(){
         baseCurrencyComboBox.setEditable(true);
         targetCurrencyComboBox.setEditable(true);
-        baseCurrencyComboBox.getItems().addAll(currencyCodes.values());
-        targetCurrencyComboBox.getItems().addAll(currencyCodes.values());
+        List<String> currencyNames = new ArrayList<>(currencyCodes.values());
+        Collections.sort(currencyNames);
+
+        baseCurrencyComboBox.getItems().addAll(currencyNames);
+        targetCurrencyComboBox.getItems().addAll(currencyNames);
    }
 
    @FXML
