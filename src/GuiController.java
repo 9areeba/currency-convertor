@@ -6,7 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import java.text.DecimalFormat;
 import java.util.Map;
+import java.util.Objects;
 
+/**
+ * This class handles reading and updating data from the gui.
+ * Reads the amount to be converted and the currencies to convert to and from
+ * Uses Convertor class to get the converted amount and displays to user.
+ * Handles any error made by the user
+ */
 public class GuiController {
     @FXML
     TextField amount;
@@ -18,7 +25,7 @@ public class GuiController {
     Label reuslt;
 
     Convertor convertor;
-    Map<String, Object> currencyCodes;
+    Map<String, String> currencyCodes;
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
 
@@ -29,14 +36,17 @@ public class GuiController {
 
    @FXML
     public void initialize(){
-       baseCurrencyComboBox.getItems().addAll(currencyCodes.keySet());
-       targetCurrencyComboBox.getItems().addAll(currencyCodes.keySet());
+        baseCurrencyComboBox.setEditable(true);
+        targetCurrencyComboBox.setEditable(true);
+        baseCurrencyComboBox.getItems().addAll(currencyCodes.values());
+        targetCurrencyComboBox.getItems().addAll(currencyCodes.values());
    }
 
    @FXML
     public void handleConversion(Event event){
-       String baseCur = baseCurrencyComboBox.getValue();
-       String targetCur = targetCurrencyComboBox.getValue();
+       String baseCur = getCurrencyCode(true);
+       String targetCur = getCurrencyCode(false);
+
        double amountConverted = 0;
        double amountAsInteger = checkAmountEnteredValue();
 
@@ -64,6 +74,12 @@ public class GuiController {
        return 0;
    }
 
+    /**
+     * Checks if a valid amount has been entered
+     * If a negative number or anything other than a number is entered, -1 is returned.
+     * Otherwise, the amount to be converted is returned as double
+     * @return amount entered as a number
+     */
    private double checkAmountEnteredValue(){
        if(amount.getText() == null){
            Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -88,6 +104,18 @@ public class GuiController {
            }
        }
    }
+
+   private String getCurrencyCode(boolean isBaseCurrency){
+       String currencyName = isBaseCurrency ? baseCurrencyComboBox.getValue() : targetCurrencyComboBox.getValue();
+       String currencyCode = null;
+       for(Map.Entry<String, String> entry: currencyCodes.entrySet()){
+           if(Objects.equals(currencyName, entry.getValue())){
+               currencyCode = entry.getKey();
+           }
+       }
+       return currencyCode;
+   }
+
 
 
 }

@@ -15,6 +15,8 @@ public class Main extends Application {
         URL url = getClass().getResource("convertorGUI.fxml");
         Parent root = FXMLLoader.load(url);
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("styles.css");
+
 
         primaryStage.setTitle("Currency Convertor");
         primaryStage.setScene(scene);

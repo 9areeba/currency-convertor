@@ -4,9 +4,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
+/**
+ * This class is responsible for connecting to the exchange-rate api, storing the currencies
+ * and gets the exchange rate between to currencies
+ */
 public class Convertor {
     String apiKey;
     String urlString;
@@ -15,27 +19,22 @@ public class Convertor {
         apiKey  = "04cad6402207e826dc0e9e8b";
     }
 
-    public static void main(String[] args) {
-        Convertor c = new Convertor();
-        System.out.println(c.getConversionRate("GBP", "PKR"));
-    }
-
     /**
      * Converts the JSON to a map - in order to easily work with JSON objects
      * @param jsonString json object as String
      * @return Map of json object
      */
-    public static Map<String,Object> jsonToMap(String jsonString){
-        Map<String,Object> map = new Gson().fromJson(
-                jsonString, new TypeToken<HashMap<String,Object>>(){}.getType()
+    public static Map<String,String> jsonToMap(String jsonString){
+        Map<String,String> map = new Gson().fromJson(
+                jsonString, new TypeToken<TreeMap<String,String>>(){}.getType()
         );
         return map;
     }
 
     /**
-     * @return map of currency codes and currency names
+     * @return map of currency codes (key) and currency names (value)
      */
-    public Map<String, Object> getSupportedCodes(){
+    public Map<String, String> getSupportedCodes(){
         urlString = "https://v6.exchangerate-api.com/v6/" + apiKey + "/codes";
 
         try{
@@ -48,7 +47,7 @@ public class Convertor {
             JsonElement root = JsonParser.parseReader(new InputStreamReader((InputStream) connection.getContent()));
             JsonArray codes = root.getAsJsonObject().getAsJsonArray("supported_codes");
 
-            Map<String, Object> supportedCodesMap = jsonToMap(codes.toString());
+            Map<String, String> supportedCodesMap = jsonToMap(codes.toString());
             return supportedCodesMap;
 
         } catch (Exception e){
@@ -64,7 +63,7 @@ public class Convertor {
      * @return the conversion rate
      */
     public double getConversionRate(String baseCurrency, String targetCurrency){
-        urlString = "https://v6.exchangerate-api.com/v6/" + apiKey + "pair/" + baseCurrency +"/" + targetCurrency;
+        urlString = "https://v6.exchangerate-api.com/v6/" + apiKey + "/pair/" + baseCurrency +"/" + targetCurrency;
 
         try{
             URL url = new URL(urlString);
@@ -80,6 +79,7 @@ public class Convertor {
             e.printStackTrace();
             return 0;
         }
+
     }
 
 }
